@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
-import { resRandomCocktails } from "./helpers/helpers";
+import { resRandomCocktails, getRandomCocktail } from "./helpers/helpers";
 
 export const SectionRandomCocktails = () => {
-  const [randomCocktails, setRandomCocktails] = useState([]);
+  const [randomCocktails, setRandomCocktails] = useState({
+    visible: false,
+    data: [],
+  });
   const [loading, setLoading] = useState(false);
 
-  async function getRandomCocktail() {
-    setLoading(true);
-    const arr = [];
-    for (let i = 0; i < 9; i++) {
-      const data = await resRandomCocktails();
-      arr.push(data);
-    }
-    setRandomCocktails(arr);
-    setLoading(false);
-  }
-
   useEffect(() => {
-    getRandomCocktail();
-    console.log(randomCocktails);
+    getRandomCocktail(
+      setLoading,
+      setRandomCocktails,
+      randomCocktails,
+      resRandomCocktails
+    );
   }, [randomCocktails.length < 9]);
 
   return (
@@ -30,8 +26,8 @@ export const SectionRandomCocktails = () => {
         </p>
       )}
       <ul style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
-        {randomCocktails.length >= 9 &&
-          randomCocktails.map((item) => {
+        {randomCocktails.visible &&
+          randomCocktails.data.map((item) => {
             return (
               <li key={item.idDrink}>
                 <img
