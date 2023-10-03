@@ -1,16 +1,13 @@
 {
   "files": {
-    "main.css": "/hot-cocktails-rj/static/css/main.073c9b0a.css",
-    "main.js": "/hot-cocktails-rj/static/js/main.7e72cbc2.js",
-    "static/js/787.5dd62de0.chunk.js": "/hot-cocktails-rj/static/js/787.5dd62de0.chunk.js",
-    "static/media/logo.svg": "/hot-cocktails-rj/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/hot-cocktails-rj/static/css/main.e6c13ad2.css",
+    "main.js": "/hot-cocktails-rj/static/js/main.21f4b435.js",
     "index.html": "/hot-cocktails-rj/index.html",
-    "main.073c9b0a.css.map": "/hot-cocktails-rj/static/css/main.073c9b0a.css.map",
-    "main.7e72cbc2.js.map": "/hot-cocktails-rj/static/js/main.7e72cbc2.js.map",
-    "787.5dd62de0.chunk.js.map": "/hot-cocktails-rj/static/js/787.5dd62de0.chunk.js.map"
+    "main.e6c13ad2.css.map": "/hot-cocktails-rj/static/css/main.e6c13ad2.css.map",
+    "main.21f4b435.js.map": "/hot-cocktails-rj/static/js/main.21f4b435.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.7e72cbc2.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.21f4b435.js"
   ]
 }
