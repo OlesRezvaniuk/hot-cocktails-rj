@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/hot-cocktails-rj/static/css/main.e6c13ad2.css",
-    "main.js": "/hot-cocktails-rj/static/js/main.7a30608c.js",
+    "main.js": "/hot-cocktails-rj/static/js/main.d5bf7749.js",
     "index.html": "/hot-cocktails-rj/index.html",
     "main.e6c13ad2.css.map": "/hot-cocktails-rj/static/css/main.e6c13ad2.css.map",
-    "main.7a30608c.js.map": "/hot-cocktails-rj/static/js/main.7a30608c.js.map"
+    "main.d5bf7749.js.map": "/hot-cocktails-rj/static/js/main.d5bf7749.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.7a30608c.js"
+    "static/js/main.d5bf7749.js"
   ]
 }
