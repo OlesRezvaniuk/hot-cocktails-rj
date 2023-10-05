@@ -4,6 +4,9 @@ import { useState } from "react";
 import { getCocktailsByName } from "../components/SectionCocktailsByName/helpers/helpers";
 import { wordData } from "../components/SectionCocktailsByName/helpers/helpers";
 import { v4 as uuidv4 } from "uuid";
+import { CocktailDetailsModal } from "../components/CocktailDetails/CocktailDetailsModal";
+import { IngredientsModal } from "../components/IngredientsModal/IngredientsModal";
+import { useEffect } from "react";
 
 export const HomePage = () => {
   const [changeContent, setChangeContent] = useState(false);
@@ -11,7 +14,12 @@ export const HomePage = () => {
     visible: false,
     data: [],
   });
-  console.log(changeContent);
+  const [cocktailDetails, setCocktailDetails] = useState({
+    cocktail: null,
+    empty: true,
+    visible: false,
+    ingredients: { name: null, state: false },
+  });
 
   return (
     <div style={{ width: 1280 }}>
@@ -39,8 +47,20 @@ export const HomePage = () => {
       {changeContent ? (
         <SectionCocktailsByName cocktailsByName={cocktailsByName} />
       ) : (
-        <SectionRandomCocktails />
+        <SectionRandomCocktails
+          setCocktailDetails={setCocktailDetails}
+          cocktailDetails={cocktailDetails}
+        />
       )}
+      {cocktailDetails.cocktail !== null &&
+        cocktailDetails.empty === false &&
+        cocktailDetails.visible && (
+          <CocktailDetailsModal
+            setCocktailDetails={setCocktailDetails}
+            cocktailDetails={cocktailDetails}
+          />
+        )}
+      {cocktailDetails.ingredients.state && <IngredientsModal />}
     </div>
   );
 };

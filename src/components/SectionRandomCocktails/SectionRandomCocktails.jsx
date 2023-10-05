@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { resRandomCocktails, getRandomCocktail } from "./helpers/helpers";
+import { getCocktailDetails } from "../CocktailDetails/CocktailDetailsHelpers/CocktailDetailsHelpers";
 
-export const SectionRandomCocktails = () => {
+export const SectionRandomCocktails = ({
+  setCocktailDetails,
+  cocktailDetails,
+}) => {
   const [randomCocktails, setRandomCocktails] = useState({
     visible: false,
     data: [],
+    loading: 1,
   });
   const [loading, setLoading] = useState(false);
 
@@ -15,15 +20,36 @@ export const SectionRandomCocktails = () => {
       randomCocktails,
       resRandomCocktails
     );
-  }, [randomCocktails.length < 9]);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyModalClose);
+    return () => {
+      window.removeEventListener("keydown", handleKeyModalClose);
+    };
+  }, [cocktailDetails.visible]);
+
+  function handleKeyModalClose(e) {
+    if (e.code === "Escape") {
+      setCocktailDetails({
+        cocktail: null,
+        empty: true,
+        visible: false,
+      });
+    }
+  }
 
   return (
     <div>
       <h2>Cocktails</h2>
       {loading && (
-        <p style={{ color: "red", fontWeight: "bold", textAlign: "center" }}>
-          Loading . . .
-        </p>
+        <div
+          style={{
+            height: 10,
+            width: 20 * randomCocktails.loading,
+            background: "black",
+          }}
+        />
       )}
       <ul style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
         {randomCocktails.visible &&
@@ -35,7 +61,17 @@ export const SectionRandomCocktails = () => {
                   src={item.strDrinkThumb}
                 />
                 <p>{item.strDrink}</p>
-                <button>Learn More</button>
+                <button
+                  onClick={(e) => {
+                    getCocktailDetails(
+                      item.idDrink,
+                      cocktailDetails,
+                      setCocktailDetails
+                    );
+                  }}
+                >
+                  Learn More
+                </button>
                 <button>Add to</button>
               </li>
             );
