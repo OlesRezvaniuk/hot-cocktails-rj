@@ -18,7 +18,7 @@ export const HomePage = () => {
     cocktail: null,
     empty: true,
     visible: false,
-    ingredients: { name: null, state: false },
+    ingredients: { data: null, visible: false },
   });
 
   return (
@@ -60,7 +60,9 @@ export const HomePage = () => {
             cocktailDetails={cocktailDetails}
           />
         )}
-      {cocktailDetails.ingredients.state && <IngredientsModal />}
+      {cocktailDetails.ingredients.visible && (
+        <IngredientsModal cocktailDetails={cocktailDetails} />
+      )}
     </div>
   );
 };

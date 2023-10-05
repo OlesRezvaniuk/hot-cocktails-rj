@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import { createIngridientsArr } from "./CocktailDetailsHelpers/CocktailDetailsHelpers";
+import { getIngredientsInfo } from "../IngredientsModal/IngredientsModalHelpers/IngredientsModalHelpers";
 
 export const CocktailDetailsModal = ({
   setCocktailDetails,
@@ -20,7 +21,15 @@ export const CocktailDetailsModal = ({
               {createIngridientsArr(cocktailDetails).map((item) => {
                 return (
                   <li key={nanoid()}>
-                    <button onClick={() => console.log(item[1].join(""))}>
+                    <button
+                      onClick={() => {
+                        getIngredientsInfo({
+                          name: item[1],
+                          setCocktailDetails,
+                          cocktailDetails,
+                        });
+                      }}
+                    >
                       {item[0]}
                     </button>
                   </li>

@@ -21,22 +21,17 @@ export async function getCocktailDetails(
 }
 
 export function createIngridientsArr({ cocktail }) {
-  const arr = { related: [], ingredient: [], data: [] };
-  const arr2 = [];
+  const arr = [];
   for (let item = 1; item < 16; item++) {
     const word = "strIngredient";
     const lastWord = word + item;
     const ingredient = "strMeasure";
     const lastIngredient = ingredient + item;
     cocktail[lastWord] !== null &&
-      arr.related.push(cocktail[lastIngredient] + " " + cocktail[lastWord]);
-    cocktail[lastWord] !== null && arr.ingredient.push(cocktail[lastWord]);
-    cocktail[lastWord] !== null &&
-      arr2.push([
+      arr.push([
         [cocktail[lastIngredient] + " " + cocktail[lastWord]],
-        [cocktail[lastWord]],
+        cocktail[lastWord],
       ]);
   }
-  arr.data.push([arr.ingredient, [(arr.related, arr.ingredient)]]);
-  return arr, arr2;
+  return arr;
 }
