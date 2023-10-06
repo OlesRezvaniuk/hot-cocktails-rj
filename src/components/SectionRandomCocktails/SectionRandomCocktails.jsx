@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { resRandomCocktails, getRandomCocktail } from "./helpers/helpers";
 import { getCocktailDetails } from "../CocktailDetails/CocktailDetailsHelpers/CocktailDetailsHelpers";
+import { firebaseRequest } from "../../firebase/firebaseRequests";
 
 export const SectionRandomCocktails = ({
   setCocktailDetails,
@@ -72,7 +73,14 @@ export const SectionRandomCocktails = ({
                 >
                   Learn More
                 </button>
-                <button>Add to</button>
+                <button
+                  onClick={() => {
+                    firebaseRequest.addFavorite(item.idDrink);
+                    // console.log(item.idDrink);
+                  }}
+                >
+                  Add to
+                </button>
               </li>
             );
           })}
