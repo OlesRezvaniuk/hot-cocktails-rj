@@ -1,6 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { FavoriteBox, NavigationBox } from "./Navigation.styled";
+import {
+  FavoriteBox,
+  NavigationBox,
+  NavLinkStyled,
+  FavoriteStyled,
+} from "./Navigation.styled";
 
 export const Navigation = () => {
   const [visible, setVisible] = useState(false);
@@ -11,16 +16,33 @@ export const Navigation = () => {
 
   return (
     <NavigationBox>
-      <NavLink to="/">Home</NavLink>
+      <NavLinkStyled to="/">Home</NavLinkStyled>
       <div
+        style={{ position: "relative" }}
         onMouseEnter={handleVisibleChange}
         onMouseLeave={handleVisibleChange}
       >
-        <span>Favorite</span>
+        <FavoriteStyled>Favorite</FavoriteStyled>
         {visible && (
           <FavoriteBox>
-            <NavLink to="favorite-cocktails">Favorite cocktails</NavLink>
-            <NavLink to="favorite-ingridients">Favorite ingridients</NavLink>
+            <NavLinkStyled
+              favorite="true"
+              onClick={() => {
+                setVisible(false);
+              }}
+              to="favorite-cocktails"
+            >
+              Favorite cocktails
+            </NavLinkStyled>
+            <NavLinkStyled
+              favorite="true"
+              onClick={() => {
+                setVisible(false);
+              }}
+              to="favorite-ingridients"
+            >
+              Favorite ingridients
+            </NavLinkStyled>
           </FavoriteBox>
         )}
       </div>
