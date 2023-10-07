@@ -8,8 +8,6 @@ import {
 } from "firebase/firestore";
 
 async function addFavorite(id) {
-  //   console.log(await getFavorite());
-  //   console.log(id);
   try {
     const docRef = await addDoc(collection(exportFirebase.db, "favorite"), {
       id,

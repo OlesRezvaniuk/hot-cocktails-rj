@@ -6,13 +6,15 @@ import { wordData } from "../components/SectionCocktailsByName/helpers/helpers";
 import { v4 as uuidv4 } from "uuid";
 import { CocktailDetailsModal } from "../components/CocktailDetails/CocktailDetailsModal";
 import { IngredientsModal } from "../components/IngredientsModal/IngredientsModal";
-import { useEffect } from "react";
+import { SectionHero } from "../components/SectionHero/SectionHero";
+import { SearchCocktailsByName } from "../components/SearchCocktailsByName/SearchCocktailsByName";
 
 export const HomePage = () => {
   const [changeContent, setChangeContent] = useState(false);
   const [cocktailsByName, setCocktailsByName] = useState({
     visible: false,
     data: [],
+    word: null,
   });
   const [cocktailDetails, setCocktailDetails] = useState({
     cocktail: null,
@@ -22,28 +24,12 @@ export const HomePage = () => {
   });
 
   return (
-    <div style={{ width: 1280 }}>
-      <h1>A party wothout cocktails is not like a party</h1>
-      <ul style={{ display: "flex" }}>
-        {wordData.map((item) => {
-          return (
-            <li key={uuidv4()}>
-              <button
-                onClick={() => {
-                  getCocktailsByName({
-                    word: item,
-                    cocktailsByName,
-                    setCocktailsByName,
-                  });
-                  setChangeContent(true);
-                }}
-              >
-                {item}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+    <main>
+      <SectionHero
+        setChangeContent={setChangeContent}
+        cocktailsByName={cocktailsByName}
+        setCocktailsByName={setCocktailsByName}
+      />
       {changeContent ? (
         <SectionCocktailsByName cocktailsByName={cocktailsByName} />
       ) : (
@@ -63,6 +49,6 @@ export const HomePage = () => {
       {cocktailDetails.ingredients.visible && (
         <IngredientsModal cocktailDetails={cocktailDetails} />
       )}
-    </div>
+    </main>
   );
 };

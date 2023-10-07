@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { resRandomCocktails, getRandomCocktail } from "./helpers/helpers";
 import { getCocktailDetails } from "../CocktailDetails/CocktailDetailsHelpers/CocktailDetailsHelpers";
 import { firebaseRequest } from "../../firebase/firebaseRequests";
+import {
+  SectionRandomCocktailTitle,
+  RandomCocktailsList,
+} from "./SectionRandomCocktails.styled";
+import { CocktailCard } from "../CocktailCard/CocktailCard";
 
 export const SectionRandomCocktails = ({
   setCocktailDetails,
@@ -42,7 +47,7 @@ export const SectionRandomCocktails = ({
 
   return (
     <div>
-      <h2>Cocktails</h2>
+      <SectionRandomCocktailTitle>Cocktails</SectionRandomCocktailTitle>
       {loading && (
         <div
           style={{
@@ -52,39 +57,21 @@ export const SectionRandomCocktails = ({
           }}
         />
       )}
-      <ul style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+      <RandomCocktailsList>
         {randomCocktails.visible &&
           randomCocktails.data.map((item) => {
             return (
               <li key={item.idDrink}>
-                <img
-                  style={{ width: "calc(100%/5)" }}
-                  src={item.strDrinkThumb}
+                <CocktailCard
+                  item={item}
+                  getCocktailDetails={getCocktailDetails}
+                  cocktailDetails={cocktailDetails}
+                  setCocktailDetails={setCocktailDetails}
                 />
-                <p>{item.strDrink}</p>
-                <button
-                  onClick={(e) => {
-                    getCocktailDetails(
-                      item.idDrink,
-                      cocktailDetails,
-                      setCocktailDetails
-                    );
-                  }}
-                >
-                  Learn More
-                </button>
-                <button
-                  onClick={() => {
-                    firebaseRequest.addFavorite(item.idDrink);
-                    // console.log(item.idDrink);
-                  }}
-                >
-                  Add to
-                </button>
               </li>
             );
           })}
-      </ul>
+      </RandomCocktailsList>
     </div>
   );
 };

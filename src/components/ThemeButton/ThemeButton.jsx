@@ -14,8 +14,6 @@ export const ThemeButton = () => {
     darkTheme === false ? setDarkTheme(true) : setDarkTheme(false);
   }
 
-  console.log(darkTheme);
-
   return (
     <ThemeButtonBox>
       <ThemeButtonText $active={!darkTheme}>Light</ThemeButtonText>

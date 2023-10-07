@@ -14,6 +14,8 @@ export const Navigation = () => {
     !visible ? setVisible(true) : setVisible(false);
   }
 
+  console.log(visible);
+
   return (
     <NavigationBox>
       <NavLinkStyled to="/">Home</NavLinkStyled>

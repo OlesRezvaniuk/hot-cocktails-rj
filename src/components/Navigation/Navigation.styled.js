@@ -10,6 +10,7 @@ export const NavigationBox = styled.div`
 
 export const FavoriteBox = styled.div`
   position: absolute;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   width: max-content;
