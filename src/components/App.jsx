@@ -12,7 +12,6 @@ function App() {
           path="favorite-ingridients"
           element={"favorite ingridients page"}
         />
-        <Route path="personal-acount" element={"personal acount page"} />
       </Route>
     </Routes>
   );
