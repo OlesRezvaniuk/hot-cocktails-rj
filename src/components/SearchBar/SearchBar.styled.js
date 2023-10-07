@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ReactComponent as SearchIconPrimal } from "../SearchBar/img/bx_search.svg";
 
 export const SearchBarContainer = styled.div`
-  margin-left: 253px;
+  margin-left: auto;
   display: flex;
   width: 288px;
   height: 40px;
