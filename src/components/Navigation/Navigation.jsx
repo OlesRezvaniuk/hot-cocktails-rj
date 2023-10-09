@@ -7,18 +7,24 @@ import {
   FavoriteStyled,
 } from "./Navigation.styled";
 
-export const Navigation = () => {
+export const Navigation = ({ setChangeContent, setSelectedButton }) => {
   const [visible, setVisible] = useState(false);
 
   function handleVisibleChange() {
     !visible ? setVisible(true) : setVisible(false);
   }
 
-  console.log(visible);
-
   return (
     <NavigationBox>
-      <NavLinkStyled to="/">Home</NavLinkStyled>
+      <NavLinkStyled
+        onClick={() => {
+          setChangeContent(false);
+          setSelectedButton(null);
+        }}
+        to="/"
+      >
+        Home
+      </NavLinkStyled>
       <div
         style={{ position: "relative" }}
         onMouseEnter={handleVisibleChange}

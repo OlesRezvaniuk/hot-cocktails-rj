@@ -7,14 +7,14 @@ import {
   SearchByNameButton,
   SerchByNameList,
 } from "./SearchCocktailByName.styled";
-import { useState } from "react";
 
 export const SearchCocktailsByName = ({
   setChangeContent,
   cocktailsByName,
   setCocktailsByName,
+  selectedButton,
+  setSelectedButton,
 }) => {
-  const [selectedButton, setSelectedButton] = useState(null);
   return (
     <SearchCocktailByNameContainer>
       <SearchCocktailByNameTitle>

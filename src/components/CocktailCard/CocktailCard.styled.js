@@ -1,15 +1,29 @@
 import styled from "styled-components";
 import { ReactComponent as HeartEmptyPrimal } from "./img/heart-empty.svg";
+import { ReactComponent as CocktailPlugPrimal } from "./img/plug-cocktail-img.svg";
 
 export const CocktailCardBox = styled.div`
+  transition: 250ms;
   border-radius: 4px;
   border: 1px solid var(--Grapefruit, #fd5103);
   padding-bottom: 28px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+`;
+
+export const CocktailPlug = styled(CocktailPlugPrimal)`
+  margin-bottom: 20px;
+  max-width: 395px;
+  width: 300px;
+  max-height: 395px;
+  pointer-events: none;
 `;
 
 export const CocktailCardImg = styled.img`
   width: 100%;
   margin-bottom: 20px;
+  pointer-events: none;
 `;
 
 export const CocktailCardTitle = styled.h3`

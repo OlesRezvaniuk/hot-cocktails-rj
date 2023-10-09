@@ -9,8 +9,12 @@ import { IngredientsModal } from "../components/IngredientsModal/IngredientsModa
 import { SectionHero } from "../components/SectionHero/SectionHero";
 import { SearchCocktailsByName } from "../components/SearchCocktailsByName/SearchCocktailsByName";
 
-export const HomePage = () => {
-  const [changeContent, setChangeContent] = useState(false);
+export const HomePage = ({
+  setChangeContent,
+  changeContent,
+  selectedButton,
+  setSelectedButton,
+}) => {
   const [cocktailsByName, setCocktailsByName] = useState({
     visible: false,
     data: [],
@@ -29,6 +33,8 @@ export const HomePage = () => {
         setChangeContent={setChangeContent}
         cocktailsByName={cocktailsByName}
         setCocktailsByName={setCocktailsByName}
+        selectedButton={selectedButton}
+        setSelectedButton={setSelectedButton}
       />
       {changeContent ? (
         <SectionCocktailsByName cocktailsByName={cocktailsByName} />

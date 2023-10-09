@@ -6,6 +6,8 @@ import {
   CocktailCardButtonsBox,
   CocktailCardButton,
   HeartEmpty,
+  CocktailPlug,
+  loader,
 } from "./CocktailCard.styled";
 
 export const CocktailCard = ({
@@ -13,20 +15,44 @@ export const CocktailCard = ({
   getCocktailDetails,
   cocktailDetails,
   setCocktailDetails,
+  randomCocktails,
 }) => {
   return (
     <CocktailCardBox>
-      <CocktailCardImg src={item.strDrinkThumb} />
-      <CocktailCardTitle>{item.strDrink}</CocktailCardTitle>
+      {!item ? (
+        <div
+          style={{
+            position: "relative",
+            justifyContent: "center",
+            display: "flex",
+            alignItems: "end",
+            opacity: 0.5,
+          }}
+        >
+          <CocktailPlug />
+          <div
+            style={{
+              position: "absolute",
+              height: 10,
+              width: 20 * randomCocktails.loading,
+              background: "black",
+            }}
+          />
+        </div>
+      ) : (
+        <CocktailCardImg src={item ? item.strDrinkThumb : ""} />
+      )}
+      <CocktailCardTitle>{item ? item.strDrink : "Title"}</CocktailCardTitle>
       <CocktailCardButtonsBox>
         <CocktailCardButton
           $type={"learn more"}
           onClick={(e) => {
-            getCocktailDetails(
-              item.idDrink,
-              cocktailDetails,
-              setCocktailDetails
-            );
+            item &&
+              getCocktailDetails(
+                item.idDrink,
+                cocktailDetails,
+                setCocktailDetails
+              );
           }}
         >
           Learn More
@@ -34,7 +60,7 @@ export const CocktailCard = ({
         <CocktailCardButton
           $type={"add"}
           onClick={() => {
-            firebaseRequest.addFavorite(item.idDrink);
+            item && firebaseRequest.addFavorite(item.idDrink);
           }}
         >
           Add to
