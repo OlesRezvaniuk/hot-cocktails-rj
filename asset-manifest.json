@@ -1,18 +1,19 @@
 {
   "files": {
     "main.css": "/hot-cocktails-rj/static/css/main.681c8ad9.css",
-    "main.js": "/hot-cocktails-rj/static/js/main.dfe854d8.js",
+    "main.js": "/hot-cocktails-rj/static/js/main.6a35635c.js",
     "static/media/hero-img.svg": "/hot-cocktails-rj/static/media/hero-img.6e6d6937a45d0e6936094dd9ee5c5901.svg",
     "index.html": "/hot-cocktails-rj/index.html",
     "static/media/heart-empty.svg": "/hot-cocktails-rj/static/media/heart-empty.a901aee61df3d3b7571333fd026a0c04.svg",
+    "static/media/plug-cocktail-img.svg": "/hot-cocktails-rj/static/media/plug-cocktail-img.9738e63961db2d5e554eb80b50119583.svg",
     "static/media/bx_search.svg": "/hot-cocktails-rj/static/media/bx_search.8a235aa60271090bd6cf2f291cde7f54.svg",
     "static/media/enter.svg": "/hot-cocktails-rj/static/media/enter.0cc848b0c1dd8097d9c161c72a36ff63.svg",
     "static/media/exit.svg": "/hot-cocktails-rj/static/media/exit.d83a5c5b246a121cda79e2e2e0618955.svg",
     "main.681c8ad9.css.map": "/hot-cocktails-rj/static/css/main.681c8ad9.css.map",
-    "main.dfe854d8.js.map": "/hot-cocktails-rj/static/js/main.dfe854d8.js.map"
+    "main.6a35635c.js.map": "/hot-cocktails-rj/static/js/main.6a35635c.js.map"
   },
   "entrypoints": [
     "static/css/main.681c8ad9.css",
-    "static/js/main.dfe854d8.js"
+    "static/js/main.6a35635c.js"
   ]
 }
