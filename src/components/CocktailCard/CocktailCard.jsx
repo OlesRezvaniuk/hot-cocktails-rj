@@ -1,5 +1,12 @@
 import { firebaseRequest } from "../../firebase/firebaseRequests";
-import { CocktailCardImg } from "./CocktailCard.styled";
+import {
+  CocktailCardBox,
+  CocktailCardImg,
+  CocktailCardTitle,
+  CocktailCardButtonsBox,
+  CocktailCardButton,
+  HeartEmpty,
+} from "./CocktailCard.styled";
 
 export const CocktailCard = ({
   item,
@@ -8,23 +15,32 @@ export const CocktailCard = ({
   setCocktailDetails,
 }) => {
   return (
-    <>
+    <CocktailCardBox>
       <CocktailCardImg src={item.strDrinkThumb} />
-      <p>{item.strDrink}</p>
-      <button
-        onClick={(e) => {
-          getCocktailDetails(item.idDrink, cocktailDetails, setCocktailDetails);
-        }}
-      >
-        Learn More
-      </button>
-      <button
-        onClick={() => {
-          firebaseRequest.addFavorite(item.idDrink);
-        }}
-      >
-        Add to
-      </button>
-    </>
+      <CocktailCardTitle>{item.strDrink}</CocktailCardTitle>
+      <CocktailCardButtonsBox>
+        <CocktailCardButton
+          $type={"learn more"}
+          onClick={(e) => {
+            getCocktailDetails(
+              item.idDrink,
+              cocktailDetails,
+              setCocktailDetails
+            );
+          }}
+        >
+          Learn More
+        </CocktailCardButton>
+        <CocktailCardButton
+          $type={"add"}
+          onClick={() => {
+            firebaseRequest.addFavorite(item.idDrink);
+          }}
+        >
+          Add to
+          <HeartEmpty />
+        </CocktailCardButton>
+      </CocktailCardButtonsBox>
+    </CocktailCardBox>
   );
 };
