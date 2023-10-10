@@ -16,6 +16,8 @@ export const getAuth = createAsyncThunk("auth/", async (e, thunkAPI) => {
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
       // ...
+      console.log(user);
+      return user;
     });
   } catch (error) {
     // Handle Errors here.

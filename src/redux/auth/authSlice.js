@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAuth } from "./cocktailsOperations";
+import { getAuth } from "./authOperations";
 
 export const StatusForAll = {
   init: "INIT",
@@ -9,18 +9,18 @@ export const StatusForAll = {
 };
 
 const initialState = {
-  cocktails: null,
+  auth: null,
   status: null,
 };
-const cocktailsSlice = createSlice({
-  name: "cocktails",
+const authSlice = createSlice({
+  name: "auth",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(getRandomCocktail.fulfilled, (state, { payload }) => {
+    builder.addCase(getAuth.fulfilled, (state, action) => {
       state.status = StatusForAll.success;
-      state.user = payload;
+      state.user = console.log(action);
     });
   },
 });
 
-export default cocktailsSlice.reducer;
+export default authSlice.reducer;
