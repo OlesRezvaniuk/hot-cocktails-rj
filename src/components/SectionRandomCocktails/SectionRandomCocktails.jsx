@@ -18,7 +18,6 @@ export const SectionRandomCocktails = ({
     loading: 1,
   });
   const [loading, setLoading] = useState(false);
-  console.log(randomCocktails);
 
   useEffect(() => {
     getRandomCocktail(
