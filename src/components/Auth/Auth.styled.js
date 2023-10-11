@@ -1,9 +1,25 @@
 import styled from "styled-components";
 import { ReactComponent as EnterIconPrimal } from "./img/enter.svg";
 import { ReactComponent as ExitIconPrimal } from "./img/exit.svg";
+import { ReactComponent as GoogleAuthPrimal } from "./img/googleAuth.svg";
+
+export const GoogleAuth = styled(GoogleAuthPrimal)`
+  transition: 250ms;
+  opacity: 0.7;
+  * {
+    fill: ${(props) => !props.$active && "grey"};
+  }
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+  width: 20px;
+  height: 20px;
+`;
 
 export const AuthButton = styled.button`
-  align-self: end;
+  cursor: pointer;
+  align-self: center;
   transition: 250ms;
   margin-left: auto;
   background: none;
@@ -12,25 +28,5 @@ export const AuthButton = styled.button`
   &:hover,
   &:focus {
     fill: #fd5103;
-  }
-`;
-
-export const EnterIcon = styled(EnterIconPrimal)`
-  cursor: pointer;
-  width: 24px;
-  padding: 0px 3px;
-  fill: inherit;
-  * {
-      fill: inherit;
-    }
-  }
-`;
-export const ExitIcon = styled(ExitIconPrimal)`
-  cursor: pointer;
-  width: 24px;
-  padding: 0px 3px;
-  fill: inherit;
-  * {
-    fill: inherit;
   }
 `;

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 // import { getAuth, getOut } from "./helpers/api";
 import { AuthButton } from "./Auth.styled";
-import { EnterIcon, ExitIcon } from "./Auth.styled";
+import { EnterIcon, ExitIcon, GoogleAuth } from "./Auth.styled";
 import { getAuth } from "../../redux/auth/authOperations";
 import { authSelector } from "../../redux/auth/authSelector";
 import { tokenSelector } from "../../redux/auth/authSelector";
@@ -23,7 +23,7 @@ export const Auth = () => {
         }
       }}
     >
-      {token !== null ? <ExitIcon /> : <EnterIcon />}
+      <GoogleAuth $active={token} />
     </AuthButton>
   );
 };
