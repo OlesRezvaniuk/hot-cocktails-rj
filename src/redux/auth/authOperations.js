@@ -6,28 +6,51 @@ import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 const provider = new GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
-export const getAuth = createAsyncThunk("auth/", async (e, thunkAPI) => {
-  try {
-    signInWithPopup(exportFirebase.auth, provider).then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-      console.log(user);
-      return user;
+export const getAuth = createAsyncThunk(
+  "auth/singIn",
+  async (_, { rejectWithValue }) => {
+    const promise = new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const result = await signInWithPopup(exportFirebase.auth, provider);
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential?.accessToken;
+          const user = result.user;
+
+          if (result && credential) {
+            resolve({ token, user });
+          }
+        } catch (error) {
+          reject(error);
+        }
+      })();
     });
-  } catch (error) {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-    return thunkAPI.rejectWithValue(error.message);
+    return promise
+      .then((result) => result)
+      .catch((error) => rejectWithValue(error.message));
   }
-});
+);
+
+export const singOut = createAsyncThunk(
+  "auth/singOut",
+  async (_, { rejectWithValue }) => {
+    const promise = new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          if (exportFirebase.auth.currentUser === null) {
+            throw new Error("You are still authorized");
+          }
+          await signOut(exportFirebase.auth);
+          if (exportFirebase.auth.currentUser === null) {
+            resolve(false);
+          }
+        } catch (error) {
+          reject(error);
+        }
+      })();
+    });
+    return promise
+      .then((result) => result)
+      .catch((error) => rejectWithValue(error.message));
+  }
+);
