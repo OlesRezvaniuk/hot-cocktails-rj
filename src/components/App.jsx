@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
 import { Layout } from "./Layout/Layout";
 import { useState } from "react";
+import { FavoriteCocktailsPage } from "../pages/FavoriteCocktailsPage";
 
 function App() {
   const [changeContent, setChangeContent] = useState(false);
@@ -30,7 +31,7 @@ function App() {
             />
           }
         />
-        <Route path="favorite-cocktails" element={"favorite cocktails page"} />
+        <Route path="favorite-cocktails" element={<FavoriteCocktailsPage />} />
         <Route
           path="favorite-ingridients"
           element={"favorite ingridients page"}

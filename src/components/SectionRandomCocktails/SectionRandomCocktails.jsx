@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { resRandomCocktails, getRandomCocktail } from "./helpers/helpers";
 import { getCocktailDetails } from "../CocktailDetails/CocktailDetailsHelpers/CocktailDetailsHelpers";
 import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
 import {
   SectionRandomCocktailTitle,
   RandomCocktailsList,
@@ -14,7 +15,7 @@ export const SectionRandomCocktails = ({
 }) => {
   const [randomCocktails, setRandomCocktails] = useState({
     visible: false,
-    data: [],
+    data: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     loading: 1,
   });
   const [loading, setLoading] = useState(false);
@@ -45,19 +46,11 @@ export const SectionRandomCocktails = ({
     }
   }
 
-  function skeleton() {
-    const arr = [];
-    for (let i = 0; i < 9; i++) {
-      arr.push(i);
-    }
-    return arr;
-  }
-
   return (
     <div>
       <SectionRandomCocktailTitle>Cocktails</SectionRandomCocktailTitle>
       <RandomCocktailsList>
-        {randomCocktails.data.length === 9
+        {/* {randomCocktails.data.length === 9
           ? randomCocktails.data.map((item) => {
               return (
                 <li key={item.idDrink}>
@@ -83,10 +76,10 @@ export const SectionRandomCocktails = ({
                   />
                 </li>
               );
-            })}
-        {/* {randomCocktails.data.map((item) => {
+            })} */}
+        {randomCocktails.data.map((item) => {
           return (
-            <li key={item.idDrink}>
+            <li key={!item.idDrink ? nanoid() : item.idDrink}>
               <CocktailCard
                 loading={loading}
                 item={item}
@@ -96,7 +89,7 @@ export const SectionRandomCocktails = ({
               />
             </li>
           );
-        })} */}
+        })}
       </RandomCocktailsList>
     </div>
   );

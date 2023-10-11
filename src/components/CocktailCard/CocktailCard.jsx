@@ -1,4 +1,7 @@
 import { firebaseRequest } from "../../firebase/firebaseRequests";
+import plugImage from "./img/plug-cocktail-img.svg";
+import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import { authSelector, tokenSelector } from "../../redux/auth/authSelector";
 import {
   CocktailCardBox,
   CocktailCardImg,
@@ -16,32 +19,18 @@ export const CocktailCard = ({
   cocktailDetails,
   setCocktailDetails,
   randomCocktails,
+  loading,
 }) => {
+  const { auth } = useSelector(authSelector);
+  const token = useSelector(tokenSelector);
   return (
     <CocktailCardBox>
-      {!item ? (
-        <div
-          style={{
-            position: "relative",
-            justifyContent: "center",
-            display: "flex",
-            alignItems: "end",
-            opacity: 0.5,
-          }}
-        >
-          <CocktailPlug />
-          <div
-            style={{
-              position: "absolute",
-              height: 10,
-              width: 20 * randomCocktails.loading,
-              background: "black",
-            }}
-          />
-        </div>
-      ) : (
-        <CocktailCardImg src={item ? item.strDrinkThumb : ""} />
-      )}
+      <CocktailCardImg
+        width={320}
+        height={320}
+        src={item.strDrinkThumb ? item.strDrinkThumb : plugImage}
+      />
+
       <CocktailCardTitle>{item ? item.strDrink : "Title"}</CocktailCardTitle>
       <CocktailCardButtonsBox>
         <CocktailCardButton
@@ -60,7 +49,11 @@ export const CocktailCard = ({
         <CocktailCardButton
           $type={"add"}
           onClick={() => {
-            item && firebaseRequest.addFavorite(item.idDrink);
+            token &&
+              firebaseRequest.addFavorite({
+                itemId: item.idDrink,
+                userId: auth.uid,
+              });
           }}
         >
           Add to

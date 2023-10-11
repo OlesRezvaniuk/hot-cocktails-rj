@@ -11,15 +11,16 @@ export const StatusForAll = {
 const initialState = {
   cocktails: null,
   status: null,
+  randomCocktails: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
 };
 const cocktailsSlice = createSlice({
   name: "cocktails",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(getRandomCocktail.fulfilled, (state, { payload }) => {
-      state.status = StatusForAll.success;
-      state.user = payload;
-    });
+    // builder.addCase(getRandomCocktail.fulfilled, (state, { payload }) => {
+    //   state.status = StatusForAll.success;
+    //   state.randomCocktails = payload;
+    // });
   },
 });
 

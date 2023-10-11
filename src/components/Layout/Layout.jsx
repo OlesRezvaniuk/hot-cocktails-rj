@@ -1,7 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../Header/Header";
 import { LayoutContailer } from "./Layout.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getRandomCocktail } from "../../redux/cocktails/cocktailsOperations";
+import { useDispatch } from "react-redux";
 
 export const Layout = ({
   changeContent,

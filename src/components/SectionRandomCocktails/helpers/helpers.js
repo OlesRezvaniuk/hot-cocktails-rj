@@ -22,16 +22,16 @@ export async function getRandomCocktail(
   const arr = [];
   for (let i = 0; i < 9; i++) {
     const data = await resRandomCocktails();
-    if (arr.some((item) => item.idDrink === data.idDrink)) {
+    if (randomCocktails.data.some((item) => item.idDrink === data.idDrink)) {
       return;
     } else {
       setRandomCocktails({
         ...randomCocktails,
         loading: randomCocktails.loading + arr.length,
       });
-      arr.push(data);
+      randomCocktails.data[i] = data;
     }
   }
-  setRandomCocktails({ ...randomCocktails, data: arr, visible: true });
+  setRandomCocktails({ ...randomCocktails, visible: true });
   setLoading(false);
 }

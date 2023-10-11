@@ -14,10 +14,11 @@ export const CocktailCardBox = styled.div`
 
 export const CocktailPlug = styled(CocktailPlugPrimal)`
   margin-bottom: 20px;
-  max-width: 395px;
+  max-width: 320px;
   width: 300px;
-  max-height: 395px;
+  max-height: 320px;
   pointer-events: none;
+  opacity: 0.2;
 `;
 
 export const CocktailCardImg = styled.img`
