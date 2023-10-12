@@ -1,6 +1,6 @@
 import { SectionRandomCocktails } from "../components/SectionRandomCocktails/SectionRandomCocktails";
 import { SectionCocktailsByName } from "../components/SectionCocktailsByName/SectionCocktailsByName";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCocktailsByName } from "../components/SectionCocktailsByName/helpers/helpers";
 import { wordData } from "../components/SectionCocktailsByName/helpers/helpers";
 import { v4 as uuidv4 } from "uuid";
@@ -8,6 +8,10 @@ import { CocktailDetailsModal } from "../components/CocktailDetails/CocktailDeta
 import { IngredientsModal } from "../components/IngredientsModal/IngredientsModal";
 import { SectionHero } from "../components/SectionHero/SectionHero";
 import { SearchCocktailsByName } from "../components/SearchCocktailsByName/SearchCocktailsByName";
+import { useDispatch } from "react-redux";
+import { getFavoriteCocktails } from "../redux/cocktails/cocktailsOperations";
+import { authSelector } from "../redux/auth/authSelector";
+import { useSelector } from "react-redux";
 
 export const HomePage = ({
   setChangeContent,
@@ -15,6 +19,8 @@ export const HomePage = ({
   selectedButton,
   setSelectedButton,
 }) => {
+  const dispatch = useDispatch();
+  const { auth } = useSelector(authSelector);
   const [cocktailsByName, setCocktailsByName] = useState({
     visible: false,
     data: [],
@@ -26,6 +32,12 @@ export const HomePage = ({
     visible: false,
     ingredients: { data: null, visible: false },
   });
+
+  console.log(auth.uid);
+
+  useEffect(() => {
+    dispatch(getFavoriteCocktails(auth.uid));
+  }, []);
 
   return (
     <main>

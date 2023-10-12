@@ -6,9 +6,13 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { ThemeButton } from "../ThemeButton/ThemeButton";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { authSelector } from "../../redux/auth/authSelector";
+import { collection, doc, setDoc } from "firebase/firestore";
+import exportFirebase from "../../firebase/firebase";
 
 export const Header = ({ setChangeContent, setSelectedButton }) => {
   const { auth } = useSelector(authSelector);
+
+  const citiesRef = collection(exportFirebase.db, "cities");
 
   return (
     <HeaderContainer>
