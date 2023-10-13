@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../Header/Header";
 import { LayoutContailer } from "./Layout.styled";
+import { Test } from "../Test/Test";
 import { useEffect, useState } from "react";
 import {
   deleteFavorite,
@@ -20,16 +21,8 @@ export const Layout = ({
         setSelectedButton={setSelectedButton}
       />
       <Outlet ppp={"ppp"} />
-      <button
-        onClick={() => {
-          deleteFavorite({
-            userId: "lbjGoovfkBQUSPdMKddzxtizttK2",
-            itemId: "11965",
-          });
-        }}
-      >
-        delete
-      </button>
+
+      <Test />
     </LayoutContailer>
   );
 };
