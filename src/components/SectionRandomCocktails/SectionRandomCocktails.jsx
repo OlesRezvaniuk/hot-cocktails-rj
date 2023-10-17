@@ -2,31 +2,46 @@ import { useEffect, useState } from "react";
 import { resRandomCocktails, getRandomCocktail } from "./helpers/helpers";
 import { getCocktailDetails } from "../CocktailDetails/CocktailDetailsHelpers/CocktailDetailsHelpers";
 import { nanoid } from "nanoid";
-import { useDispatch } from "react-redux";
+import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import { cocktailsSelector } from "../../redux/cocktails/cocktailsSelector";
 import {
   SectionRandomCocktailTitle,
   RandomCocktailsList,
 } from "./SectionRandomCocktails.styled";
 import { CocktailCard } from "../CocktailCard/CocktailCard";
+import { getFavoriteCocktails } from "../../redux/cocktails/cocktailsOperations";
+import { authSelector } from "../../redux/auth/authSelector";
+import { useDispatch } from "react-redux";
 
 export const SectionRandomCocktails = ({
   setCocktailDetails,
   cocktailDetails,
 }) => {
+  const cocktails = useSelector(cocktailsSelector);
   const [randomCocktails, setRandomCocktails] = useState({
     visible: false,
     data: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     loading: 1,
   });
   const [loading, setLoading] = useState(false);
+  const { auth } = useSelector(authSelector);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    getRandomCocktail(
+  async function getCocktails() {
+    auth !== null && (await getFavoriteCocktails(auth.uid));
+    console.log("getted favorite", cocktails.favoriteCocktails);
+    await getRandomCocktail(
       setLoading,
       setRandomCocktails,
       randomCocktails,
-      resRandomCocktails
+      resRandomCocktails,
+      cocktails
     );
+    console.log("getted random cocktails");
+  }
+
+  useEffect(() => {
+    getCocktails();
   }, []);
 
   useEffect(() => {
@@ -35,6 +50,15 @@ export const SectionRandomCocktails = ({
       window.removeEventListener("keydown", handleKeyModalClose);
     };
   }, [cocktailDetails.visible]);
+
+  function searchFavorite() {
+    for (const e in cocktails.favoriteCocktails) {
+      const filter = randomCocktails.data.filter(
+        (item) => item.idDrink === cocktails.favoriteCocktails[e]
+      );
+    }
+  }
+  searchFavorite();
 
   function handleKeyModalClose(e) {
     if (e.code === "Escape") {
@@ -50,33 +74,6 @@ export const SectionRandomCocktails = ({
     <div>
       <SectionRandomCocktailTitle>Cocktails</SectionRandomCocktailTitle>
       <RandomCocktailsList>
-        {/* {randomCocktails.data.length === 9
-          ? randomCocktails.data.map((item) => {
-              return (
-                <li key={item.idDrink}>
-                  <CocktailCard
-                    loading={loading}
-                    item={item}
-                    getCocktailDetails={getCocktailDetails}
-                    cocktailDetails={cocktailDetails}
-                    setCocktailDetails={setCocktailDetails}
-                  />
-                </li>
-              );
-            })
-          : skeleton().map(() => {
-              return (
-                <li key={nanoid()}>
-                  <CocktailCard
-                    loading={loading}
-                    getCocktailDetails={getCocktailDetails}
-                    cocktailDetails={cocktailDetails}
-                    setCocktailDetails={setCocktailDetails}
-                    randomCocktails={randomCocktails}
-                  />
-                </li>
-              );
-            })} */}
         {randomCocktails.data.map((item) => {
           return (
             <li key={!item.idDrink ? nanoid() : item.idDrink}>
@@ -86,6 +83,8 @@ export const SectionRandomCocktails = ({
                 getCocktailDetails={getCocktailDetails}
                 cocktailDetails={cocktailDetails}
                 setCocktailDetails={setCocktailDetails}
+                randomCocktails={randomCocktails}
+                setRandomCocktails={setRandomCocktails}
               />
             </li>
           );

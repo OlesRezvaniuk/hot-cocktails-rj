@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addFavorite, getFavoriteCocktails } from "./cocktailsOperations";
+import {
+  addFavorite,
+  getFavoriteCocktails,
+  removeFavorite,
+} from "./cocktailsOperations";
 
 export const StatusForAll = {
   init: "INIT",
@@ -19,7 +23,9 @@ const cocktailsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(addFavorite.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;
-      state.favoriteCocktails = payload;
+    });
+    builder.addCase(removeFavorite.fulfilled, (state, { payload }) => {
+      state.status = StatusForAll.success;
     });
     builder.addCase(getFavoriteCocktails.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;

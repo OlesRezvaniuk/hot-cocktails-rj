@@ -33,15 +33,28 @@ import {
 //   }
 // }
 
+async function favoriteRequest(userId) {
+  try {
+    const docRef = collection(exportFirebase.db, `favorites-${userId}`);
+    const querySnapshot = await getDocs(docRef);
+    const data = [];
+    querySnapshot.forEach((doc) => {
+      const docData = doc.data();
+      if (docData) {
+        data.push(docData);
+      }
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const getFavoriteCocktails = createAsyncThunk(
   "favorite/get",
-  async (id, thunkAPI) => {
-    console.log(id);
+  async (userId, thunkAPI) => {
     try {
-      const docRef = doc(exportFirebase.db, `favorites`, id);
-      const docSnap = await getDoc(docRef);
-      const data = docSnap.data();
-      return data;
+      favoriteRequest(userId);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -53,33 +66,25 @@ export const addFavorite = createAsyncThunk(
   async ({ data }, thunkAPI) => {
     const { itemId, userId } = data;
     try {
-      const docRef = doc(exportFirebase.db, `favorites`, userId);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.data() === undefined) {
-        await setDoc(doc(exportFirebase.db, `favorites`, userId), {
-          [itemId]: itemId,
-        });
-      } else {
-        await setDoc(doc(exportFirebase.db, `favorites`, userId), {
-          ...docSnap.data(),
-          [itemId]: itemId,
-        });
-      }
-      return docSnap.data();
+      const dockRef = collection(exportFirebase.db, `favorites-${userId}`);
+      await setDoc(doc(dockRef, itemId), {
+        itemId,
+      });
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export async function deleteFavorite({ userId, itemId }) {
-  const docRef = doc(exportFirebase.db, `favorites`, userId);
-  try {
-    await updateDoc(docRef, {
-      [itemId]: deleteField(),
-    });
-    console.log(itemId);
-  } catch (error) {
-    console.log(error);
+export const removeFavorite = createAsyncThunk(
+  "favorite/remove",
+  async ({ data }, thunkAPI) => {
+    const { itemId, userId } = data;
+    try {
+      const dockRef = collection(exportFirebase.db, `favorites-${userId}`);
+      await deleteDoc(doc(dockRef, itemId));
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
-}
+);

@@ -21,7 +21,8 @@ export async function getRandomCocktail(
   setLoading(true);
   const arr = [];
   for (let i = 0; i < 9; i++) {
-    const data = await resRandomCocktails();
+    let data = await resRandomCocktails();
+    data = { ...data, favorite: false };
     if (randomCocktails.data.some((item) => item.idDrink === data.idDrink)) {
       return;
     } else {
@@ -34,4 +35,5 @@ export async function getRandomCocktail(
   }
   setRandomCocktails({ ...randomCocktails, visible: true });
   setLoading(false);
+  console.log(randomCocktails);
 }

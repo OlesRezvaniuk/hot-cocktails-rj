@@ -1,8 +1,11 @@
-import { firebaseRequest } from "../../firebase/firebaseRequests";
 import plugImage from "./img/plug-cocktail-img.svg";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { authSelector, tokenSelector } from "../../redux/auth/authSelector";
 import { useDispatch } from "react-redux";
+import {
+  deleteFavorite,
+  removeFavorite,
+} from "../../redux/cocktails/cocktailsOperations";
 import {
   CocktailCardBox,
   CocktailCardImg,
@@ -10,10 +13,14 @@ import {
   CocktailCardButtonsBox,
   CocktailCardButton,
   HeartEmpty,
-  CocktailPlug,
-  loader,
+  // CocktailPlug,
+  // loader,
 } from "./CocktailCard.styled";
-import { addFavorite } from "../../redux/cocktails/cocktailsOperations";
+import {
+  addFavorite,
+  getFavoriteCocktails,
+} from "../../redux/cocktails/cocktailsOperations";
+import { useEffect, useState } from "react";
 
 export const CocktailCard = ({
   item,
@@ -22,10 +29,39 @@ export const CocktailCard = ({
   setCocktailDetails,
   randomCocktails,
   loading,
+  getCocktails,
+  setRandomCocktails,
 }) => {
   const { auth } = useSelector(authSelector);
+  const [changeFavorite, setChangeFavorite] = useState(false);
   const token = useSelector(tokenSelector);
   const dispatch = useDispatch();
+
+  function handleChangeFavorite() {
+    const index = randomCocktails.data.findIndex(
+      (el) => el.idDrink === item.idDrink
+    );
+    return index;
+  }
+
+  async function favoriteActionRequests() {
+    if (!changeFavorite) {
+      await dispatch(
+        addFavorite({
+          data: { itemId: item.idDrink, userId: auth.uid },
+        })
+      );
+      console.log("add");
+    } else {
+      console.log("remove");
+      await dispatch(
+        removeFavorite({
+          data: { itemId: item.idDrink, userId: auth.uid },
+        })
+      );
+    }
+  }
+
   return (
     <CocktailCardBox>
       <CocktailCardImg
@@ -51,16 +87,12 @@ export const CocktailCard = ({
         </CocktailCardButton>
         <CocktailCardButton
           $type={"add"}
-          onClick={() => {
-            token &&
-              dispatch(
-                addFavorite({
-                  data: { itemId: item.idDrink, userId: auth.uid },
-                })
-              );
+          onClick={async () => {
+            token && favoriteActionRequests();
+            setChangeFavorite(!changeFavorite);
           }}
         >
-          Add to
+          {changeFavorite ? "remove" : "add"}
           <HeartEmpty />
         </CocktailCardButton>
       </CocktailCardButtonsBox>

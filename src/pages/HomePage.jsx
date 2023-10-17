@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { getFavoriteCocktails } from "../redux/cocktails/cocktailsOperations";
 import { authSelector } from "../redux/auth/authSelector";
 import { useSelector } from "react-redux";
+import { cocktailsSelector } from "../redux/cocktails/cocktailsSelector";
 
 export const HomePage = ({
   setChangeContent,
@@ -21,6 +22,7 @@ export const HomePage = ({
 }) => {
   const dispatch = useDispatch();
   const { auth } = useSelector(authSelector);
+  const cocktails = useSelector(cocktailsSelector);
   const [cocktailsByName, setCocktailsByName] = useState({
     visible: false,
     data: [],
@@ -33,10 +35,9 @@ export const HomePage = ({
     ingredients: { data: null, visible: false },
   });
 
-  console.log(auth.uid);
-
   useEffect(() => {
-    dispatch(getFavoriteCocktails(auth.uid));
+    console.log(auth);
+    auth !== null && dispatch(getFavoriteCocktails(auth.uid));
   }, []);
 
   return (
