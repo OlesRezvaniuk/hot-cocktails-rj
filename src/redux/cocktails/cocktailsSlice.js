@@ -3,6 +3,7 @@ import {
   addFavorite,
   getFavoriteCocktails,
   removeFavorite,
+  getCocktailsById,
 } from "./cocktailsOperations";
 
 export const StatusForAll = {

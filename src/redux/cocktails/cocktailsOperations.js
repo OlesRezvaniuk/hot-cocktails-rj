@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import exportFirebase from "../../firebase/firebase";
+import axios from "axios";
 import {
   collection,
   addDoc,
@@ -12,28 +13,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-// export async function addFavorite({ itemId, userId }) {
-//   try {
-//     const docRef = doc(exportFirebase.db, `favorites`, userId);
-//     const docSnap = await getDoc(docRef);
-//     if (docSnap.data() === undefined) {
-//       await setDoc(doc(exportFirebase.db, `favorites`, userId), {
-//         [itemId]: itemId,
-//       });
-//       console.log(docSnap.data());
-//     } else {
-//       await setDoc(doc(exportFirebase.db, `favorites`, userId), {
-//         ...docSnap.data(),
-//         [itemId]: itemId,
-//       });
-//       console.log(docSnap.data());
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 async function favoriteRequest(userId) {
+  console.log("favorite request");
   try {
     const docRef = collection(exportFirebase.db, `favorites-${userId}`);
     const querySnapshot = await getDocs(docRef);
@@ -54,7 +35,8 @@ export const getFavoriteCocktails = createAsyncThunk(
   "favorite/get",
   async (userId, thunkAPI) => {
     try {
-      favoriteRequest(userId);
+      const data = favoriteRequest(userId);
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -88,3 +70,17 @@ export const removeFavorite = createAsyncThunk(
     }
   }
 );
+
+export async function getCocktailById(favoriteCocktails) {
+  const arr = [];
+  try {
+    for (const { itemId } of favoriteCocktails) {
+      const { data } = await axios.get(
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${itemId}`
+      );
+      const res = data.drinks[0];
+      arr.push(res);
+    }
+    return arr;
+  } catch (error) {}
+}
