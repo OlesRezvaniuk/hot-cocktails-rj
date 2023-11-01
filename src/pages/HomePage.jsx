@@ -25,6 +25,7 @@ export const HomePage = ({
   const dispatch = useDispatch();
   const { auth } = useSelector(authSelector);
   const { favoriteCocktails } = useSelector(cocktailsSelector);
+  const [loading, setLoading] = useState(false);
   const [cocktailsByName, setCocktailsByName] = useState({
     visible: false,
     data: [],
@@ -40,8 +41,6 @@ export const HomePage = ({
     auth !== null && dispatch(getFavoriteCocktails(auth.uid));
   }, []);
 
-  console.log(cocktailDetails.cocktail);
-
   return (
     <main style={{ position: "relative" }}>
       <SectionHero
@@ -52,7 +51,15 @@ export const HomePage = ({
         setSelectedButton={setSelectedButton}
       />
       {changeContent ? (
-        <SectionCocktailsByName cocktailsByName={cocktailsByName} />
+        <SectionCocktailsByName
+          cocktailsByName={cocktailsByName}
+          setCocktailDetails={setCocktailDetails}
+          cocktailDetails={cocktailDetails}
+          randomCocktails={randomCocktails}
+          setRandomCocktails={setRandomCocktails}
+          loading={loading}
+          setLoading={setLoading}
+        />
       ) : (
         <SectionRandomCocktails
           setCocktailDetails={setCocktailDetails}
