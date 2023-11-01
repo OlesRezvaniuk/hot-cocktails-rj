@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
-export const SectionRandomCocktailTitle = styled.h3`
-  color: var(--Black, #202025);
+export const SectionCocktailsByIdBox = styled.div`
+  padding-top: 60px;
+  padding-bottom: 60px;
+`;
+
+export const SectionCocktailsByIdTitle = styled.h3`
+  color: #000;
   text-align: center;
   /* H2 Poppins Disktop */
   font-family: Poppins;
@@ -12,10 +17,9 @@ export const SectionRandomCocktailTitle = styled.h3`
   margin-bottom: 60px;
 `;
 
-export const RandomCocktailsList = styled.ul`
+export const CocktailsByIdList = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
   list-style: none;
-  padding-bottom: 60px;
 `;

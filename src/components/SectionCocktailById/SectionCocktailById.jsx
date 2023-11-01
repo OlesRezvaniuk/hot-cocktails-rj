@@ -6,42 +6,55 @@ import { useDispatch } from "react-redux";
 import { getFavoriteCocktails } from "../../redux/cocktails/cocktailsOperations";
 import { getCocktailById } from "../../redux/cocktails/cocktailsOperations";
 import { CocktailCard } from "../CocktailCard/CocktailCard";
+import {
+  CocktailsByIdList,
+  SectionCocktailsByIdTitle,
+  SectionCocktailsByIdBox,
+} from "./SectionCocktailById.styled";
+import { getCocktailDetails } from "../CocktailDetails/CocktailDetailsHelpers/CocktailDetailsHelpers";
 
-export const SectionCocktailById = () => {
+export const SectionCocktailById = ({
+  cocktailDetails,
+  setCocktailDetails,
+}) => {
   const dispatch = useDispatch();
   const cocktails = useSelector(cocktailsSelector);
   const { auth } = useSelector(authSelector);
   const { favoriteCocktails } = cocktails;
-  const [data, setData] = useState(null);
+  const [renderData, SetRenderData] = useState(null);
 
   useEffect(() => {
-    getResponse();
-  }, [dispatch]);
+    reqFavoriteCocktails();
+  }, []);
 
-  async function favoriteCocktailsData() {
+  useEffect(() => {
+    reqFavoriteCocktails();
+  }, [favoriteCocktails !== null && favoriteCocktails.length]);
+
+  async function reqFavoriteCocktails() {
+    await dispatch(getFavoriteCocktails(auth.uid));
     const data = await getCocktailById(favoriteCocktails);
-    setData(data);
-  }
-
-  async function getResponse() {
-    if (auth.uid) {
-      await dispatch(getFavoriteCocktails(auth.uid));
-      favoriteCocktailsData();
-    }
+    SetRenderData(data);
   }
 
   return (
-    <div>
-      <ul>
-        {data &&
-          data.map((item) => {
+    <SectionCocktailsByIdBox>
+      <SectionCocktailsByIdTitle>Favorite cocktails</SectionCocktailsByIdTitle>
+      <CocktailsByIdList>
+        {renderData &&
+          renderData.map((item) => {
             return (
               <li key={item.idDrink}>
-                <CocktailCard item={item} />
+                <CocktailCard
+                  item={item}
+                  getCocktailDetails={getCocktailDetails}
+                  cocktailDetails={cocktailDetails}
+                  setCocktailDetails={setCocktailDetails}
+                />
               </li>
             );
           })}
-      </ul>
-    </div>
+      </CocktailsByIdList>
+    </SectionCocktailsByIdBox>
   );
 };

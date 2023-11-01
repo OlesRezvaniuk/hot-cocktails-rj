@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../Header/Header";
-import { LayoutContailer } from "./Layout.styled";
+import { LayoutContailer, FooterBox } from "./Layout.styled";
 // import { Test } from "../Test/Test";
 import { useEffect, useState } from "react";
 import {
@@ -22,7 +22,7 @@ export const Layout = ({
       />
       <Outlet ppp={"ppp"} />
 
-      {/* <Test /> */}
+      <FooterBox />
     </LayoutContailer>
   );
 };

@@ -7,6 +7,12 @@ import { FavoriteCocktailsPage } from "../pages/FavoriteCocktailsPage";
 function App() {
   const [changeContent, setChangeContent] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
+  const [cocktailDetails, setCocktailDetails] = useState({
+    cocktail: null,
+    empty: true,
+    visible: false,
+    ingredients: { data: null, visible: false },
+  });
 
   return (
     <Routes>
@@ -28,10 +34,20 @@ function App() {
               setChangeContent={setChangeContent}
               selectedButton={selectedButton}
               setSelectedButton={setSelectedButton}
+              cocktailDetails={cocktailDetails}
+              setCocktailDetails={setCocktailDetails}
             />
           }
         />
-        <Route path="favorite-cocktails" element={<FavoriteCocktailsPage />} />
+        <Route
+          path="favorite-cocktails"
+          element={
+            <FavoriteCocktailsPage
+              cocktailDetails={cocktailDetails}
+              setCocktailDetails={setCocktailDetails}
+            />
+          }
+        />
         <Route
           path="favorite-ingridients"
           element={"favorite ingridients page"}

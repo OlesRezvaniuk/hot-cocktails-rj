@@ -17,6 +17,7 @@ const initialState = {
   cocktails: null,
   status: null,
   favoriteCocktails: null,
+  favoriteCocktailsData: null,
 };
 const cocktailsSlice = createSlice({
   name: "cocktails",
@@ -24,9 +25,11 @@ const cocktailsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(addFavorite.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;
+      state.favoriteCocktails = payload;
     });
     builder.addCase(removeFavorite.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;
+      state.favoriteCocktails = payload;
     });
     builder.addCase(getFavoriteCocktails.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;

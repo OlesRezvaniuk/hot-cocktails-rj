@@ -14,7 +14,6 @@ import {
 } from "firebase/firestore";
 
 async function favoriteRequest(userId) {
-  console.log("favorite request");
   try {
     const docRef = collection(exportFirebase.db, `favorites-${userId}`);
     const querySnapshot = await getDocs(docRef);
@@ -33,7 +32,7 @@ async function favoriteRequest(userId) {
 
 export const getFavoriteCocktails = createAsyncThunk(
   "favorite/get",
-  async (userId, thunkAPI) => {
+  async (userId, setData, thunkAPI) => {
     try {
       const data = favoriteRequest(userId);
       return data;
@@ -52,6 +51,8 @@ export const addFavorite = createAsyncThunk(
       await setDoc(doc(dockRef, itemId), {
         itemId,
       });
+      const data = favoriteRequest(userId);
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -65,6 +66,8 @@ export const removeFavorite = createAsyncThunk(
     try {
       const dockRef = collection(exportFirebase.db, `favorites-${userId}`);
       await deleteDoc(doc(dockRef, itemId));
+      const data = favoriteRequest(userId);
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

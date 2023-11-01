@@ -3,8 +3,6 @@ import { nanoid } from "nanoid";
 
 export const IngredientsModal = ({ cocktailDetails }) => {
   const { data } = cocktailDetails.ingredients;
-  console.log(modifyIngredientInfo(data));
-  console.log(data);
   return (
     <div
       style={{

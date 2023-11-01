@@ -35,5 +35,4 @@ export async function getRandomCocktail(
   }
   setRandomCocktails({ ...randomCocktails, visible: true });
   setLoading(false);
-  console.log(randomCocktails);
 }

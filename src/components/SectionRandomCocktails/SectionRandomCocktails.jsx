@@ -16,20 +16,17 @@ import { useDispatch } from "react-redux";
 export const SectionRandomCocktails = ({
   setCocktailDetails,
   cocktailDetails,
+  randomCocktails,
+  setRandomCocktails,
 }) => {
   const cocktails = useSelector(cocktailsSelector);
-  const [randomCocktails, setRandomCocktails] = useState({
-    visible: false,
-    data: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
-    loading: 1,
-  });
+
   const [loading, setLoading] = useState(false);
   const { auth } = useSelector(authSelector);
   const dispatch = useDispatch();
 
   async function getCocktails() {
     auth !== null && (await getFavoriteCocktails(auth.uid));
-    console.log("getted favorite", cocktails.favoriteCocktails);
     await getRandomCocktail(
       setLoading,
       setRandomCocktails,
@@ -37,7 +34,6 @@ export const SectionRandomCocktails = ({
       resRandomCocktails,
       cocktails
     );
-    console.log("getted random cocktails");
   }
 
   useEffect(() => {
@@ -62,7 +58,9 @@ export const SectionRandomCocktails = ({
 
   function handleKeyModalClose(e) {
     if (e.code === "Escape") {
+      document.body.style.overflow = "scroll";
       setCocktailDetails({
+        ...cocktailDetails,
         cocktail: null,
         empty: true,
         visible: false,

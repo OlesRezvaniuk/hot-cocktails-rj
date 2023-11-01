@@ -1,6 +1,21 @@
 import { nanoid } from "nanoid";
 import { createIngridientsArr } from "./CocktailDetailsHelpers/CocktailDetailsHelpers";
 import { getIngredientsInfo } from "../IngredientsModal/IngredientsModalHelpers/IngredientsModalHelpers";
+import {
+  CocktailDetailsModalBackdrop,
+  CocktailDetailsModalBox,
+  CocktailDetailsImg,
+  CocktailDetailsTitle,
+  CocktailDetailsInfoBox,
+  CocktailDetailsIngridients,
+  IngridientsPerCocktail,
+  CocktailDetailsIngridientsList,
+  CocktailDetailsIngridientButton,
+  InstuctionBox,
+  InstructionBoxTitle,
+  InstructionsText,
+} from "./CocktailDetailsModal.styled";
+import { IsFavoriteButton } from "../IsFavoriteButton/IsFavoriteButton";
 
 export const CocktailDetailsModal = ({
   setCocktailDetails,
@@ -9,19 +24,32 @@ export const CocktailDetailsModal = ({
   const { strDrink, strDrinkThumb, strInstructions } = cocktailDetails.cocktail;
 
   return (
-    <div style={{ width: 300, height: 300, background: "grey" }}>
-      <div>
-        <div>
-          <img src={strDrinkThumb} alt="Img" />
-          <div>
-            <h3>{strDrink}</h3>
-            <h4>Ingridients</h4>
-            <p>Per cocktail</p>
-            <ul>
+    <CocktailDetailsModalBackdrop
+      id="detailsBackdrop"
+      onClick={(e) => {
+        if (e.target.id === "detailsBackdrop") {
+          document.body.style.overflow = "scroll";
+          setCocktailDetails({
+            ...cocktailDetails,
+            cocktail: null,
+            empty: true,
+            visible: false,
+          });
+        }
+      }}
+    >
+      <CocktailDetailsModalBox>
+        <CocktailDetailsInfoBox>
+          <CocktailDetailsImg src={strDrinkThumb} alt="Img" />
+          <div style={{ transform: "translateY(40px)" }}>
+            <CocktailDetailsTitle>{strDrink}</CocktailDetailsTitle>
+            <CocktailDetailsIngridients>Ingridients</CocktailDetailsIngridients>
+            <IngridientsPerCocktail>Per cocktail</IngridientsPerCocktail>
+            <CocktailDetailsIngridientsList>
               {createIngridientsArr(cocktailDetails).map((item) => {
                 return (
                   <li key={nanoid()}>
-                    <button
+                    <CocktailDetailsIngridientButton
                       onClick={() => {
                         getIngredientsInfo({
                           name: item[1],
@@ -30,20 +58,21 @@ export const CocktailDetailsModal = ({
                         });
                       }}
                     >
+                      <span style={{ marginRight: 8 }}>✶</span>
                       {item[0]}
-                    </button>
+                    </CocktailDetailsIngridientButton>
                   </li>
                 );
               })}
-            </ul>
+            </CocktailDetailsIngridientsList>
           </div>
-        </div>
-        <div>
-          <h3>Instructions:</h3>
-          <p>{strInstructions}</p>
-        </div>
-        <div></div>
-      </div>
-    </div>
+        </CocktailDetailsInfoBox>
+        <InstuctionBox>
+          <InstructionBoxTitle>Instructions:</InstructionBoxTitle>
+          <InstructionsText>{strInstructions}</InstructionsText>
+        </InstuctionBox>
+        <IsFavoriteButton item={cocktailDetails.cocktail} />
+      </CocktailDetailsModalBox>
+    </CocktailDetailsModalBackdrop>
   );
 };

@@ -7,9 +7,9 @@ export const CocktailCardBox = styled.div`
   border-radius: 4px;
   border: 1px solid var(--Grapefruit, #fd5103);
   padding-bottom: 28px;
-  width: 100%;
   text-align: center;
   cursor: pointer;
+  height: 556px;
 `;
 
 export const CocktailPlug = styled(CocktailPlugPrimal)`
@@ -19,12 +19,14 @@ export const CocktailPlug = styled(CocktailPlugPrimal)`
   max-height: 320px;
   pointer-events: none;
   opacity: 0.2;
+  height: 395px;
 `;
 
 export const CocktailCardImg = styled.img`
   width: 100%;
   margin-bottom: 20px;
   pointer-events: none;
+  height: 395px;
 `;
 
 export const CocktailCardTitle = styled.h3`

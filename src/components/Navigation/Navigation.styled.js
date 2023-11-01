@@ -17,6 +17,7 @@ export const FavoriteBox = styled.div`
   left: -12px;
   border-radius: 4px;
   border: 1px solid #fd5103;
+  background: #fff;
 `;
 
 export const NavLinkStyled = styled(NavLink)`

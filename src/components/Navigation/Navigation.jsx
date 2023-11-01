@@ -1,5 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getFavoriteCocktails } from "../../redux/cocktails/cocktailsOperations";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { authSelector } from "../../redux/auth/authSelector";
 import {
   FavoriteBox,
   NavigationBox,
@@ -9,6 +13,8 @@ import {
 
 export const Navigation = ({ setChangeContent, setSelectedButton }) => {
   const [visible, setVisible] = useState(false);
+  const { auth } = useSelector(authSelector);
+  const dispatch = useDispatch();
 
   function handleVisibleChange() {
     !visible ? setVisible(true) : setVisible(false);
@@ -37,6 +43,7 @@ export const Navigation = ({ setChangeContent, setSelectedButton }) => {
               favorite="true"
               onClick={() => {
                 setVisible(false);
+                dispatch(getFavoriteCocktails(auth.uid));
               }}
               to="favorite-cocktails"
             >

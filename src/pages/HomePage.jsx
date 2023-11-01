@@ -19,29 +19,31 @@ export const HomePage = ({
   changeContent,
   selectedButton,
   setSelectedButton,
+  cocktailDetails,
+  setCocktailDetails,
 }) => {
   const dispatch = useDispatch();
   const { auth } = useSelector(authSelector);
-  const cocktails = useSelector(cocktailsSelector);
+  const { favoriteCocktails } = useSelector(cocktailsSelector);
   const [cocktailsByName, setCocktailsByName] = useState({
     visible: false,
     data: [],
     word: null,
   });
-  const [cocktailDetails, setCocktailDetails] = useState({
-    cocktail: null,
-    empty: true,
+  const [randomCocktails, setRandomCocktails] = useState({
     visible: false,
-    ingredients: { data: null, visible: false },
+    data: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
+    loading: 1,
   });
 
   useEffect(() => {
-    console.log(auth);
     auth !== null && dispatch(getFavoriteCocktails(auth.uid));
   }, []);
 
+  console.log(cocktailDetails.cocktail);
+
   return (
-    <main>
+    <main style={{ position: "relative" }}>
       <SectionHero
         setChangeContent={setChangeContent}
         cocktailsByName={cocktailsByName}
@@ -55,6 +57,8 @@ export const HomePage = ({
         <SectionRandomCocktails
           setCocktailDetails={setCocktailDetails}
           cocktailDetails={cocktailDetails}
+          randomCocktails={randomCocktails}
+          setRandomCocktails={setRandomCocktails}
         />
       )}
       {cocktailDetails.cocktail !== null &&
